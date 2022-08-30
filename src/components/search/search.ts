@@ -1,7 +1,13 @@
-import { css, customElement, html, LitElement } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import SearchService from '../../services/searchService';
+import '../../components/search-results/searchResults';
 
-@customElement('lit-search')
+@customElement('search-container')
 export class Search extends LitElement {
+  @property({attribute: false})
+  results: any;
+
   static styles = css`
     .search-container {
       perspective: 4000px;
@@ -176,12 +182,27 @@ export class Search extends LitElement {
               ></label>
             </div>
             <div class="search-button-container">
-              <button class="search-button" type="submit">Search</button>
+              <button
+                @click=${this._submit}
+                class="search-button"
+                type="submit"
+              >
+                Search
+              </button>
             </div>
           </form>
-          <!-- <search-results [results]="results"></search-results> -->
+          <search-results .results=${this.results}></search-results>
         </div>
       </div>
     `;
+  }
+
+  private async _submit() {
+    try {
+      const results = await SearchService.searchByKeyword('cat', 'date');
+      this.results = results;
+    } catch {
+      // TODO: handle error
+    }
   }
 }

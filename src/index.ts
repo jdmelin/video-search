@@ -1,15 +1,15 @@
 import { Router } from '@vaadin/router';
 import './app';
-import './search/search';
+import './components/search/search';
 
 const routes = [
   {
     path: '/',
-    component: 'lit-app',
+    component: 'app-home',
   },
   {
     path: 'search',
-    component: 'lit-search',
+    component: 'search-container',
   },
 ];
 
