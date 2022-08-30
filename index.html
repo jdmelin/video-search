@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="Description" content="Put your description here." />
+    <base href="/" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+      }
+
+      .container {
+        background-image: url('assets/images/home-background.jpg');
+        background-position: center;
+        height: 100%;
+        max-height: 1280px;
+        max-width: 1920px;
+        margin: auto;
+      }
+    </style>
+    <title>Video Search</title>
+  </head>
+
+  <body>
+    <main class="container">
+      <div id="outlet"></div>
+    </main>
+    <script type="module" src="./out-tsc/src/index.js"></script>
+  </body>
+</html>
