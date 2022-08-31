@@ -13,3 +13,7 @@ npm i
 ```sh
 npm run start
 ```
+
+## Description
+
+This app allows you to search for YouTube videos with the optional ability to sort by Relevance, Date, or Rating upon submitting a keyword search. Currently, the results for each search are limited to 25 videos. 

@@ -1,4 +1,4 @@
-export interface SearchResult {
+export interface Result {
   description: string;
   id: string;
   thumbnail: string;

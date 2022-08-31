@@ -1,12 +1,15 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { Result } from '../../models/result.model';
 import SearchService from '../../services/searchService';
 import '../../components/search-results/searchResults';
 
 @customElement('search-container')
 export class Search extends LitElement {
-  @property({attribute: false})
-  results: any;
+  @property()
+  results: Result[] = [];
+  keyword: string = '';
+  sortBy: string = '';
 
   static styles = css`
     .search-container {
@@ -24,8 +27,8 @@ export class Search extends LitElement {
       left: calc(50% - 265px);
       position: absolute;
       top: calc(50vh - 357px);
-      transform: rotate3d(-46, -31, 25, -56deg);
-      width: 462px;
+      transform: rotate3d(-45, -31, 25, -56deg);
+      width: 465px;
     }
 
     .search-form {
@@ -146,6 +149,7 @@ export class Search extends LitElement {
               type="text"
               placeholder="Search"
               required
+              @input=${this._onChangeKeyword}
             />
             <div class="radio-container">
               <label class="radio-label" for="relevance"
@@ -153,9 +157,8 @@ export class Search extends LitElement {
                 <input
                   id="relevance"
                   type="radio"
-                  name="sortBy"
                   value="relevance"
-                  required
+                  @input=${this._onSelectRadio}
                 />
                 <span class="custom-radio"></span>
               </label>
@@ -164,9 +167,8 @@ export class Search extends LitElement {
                 <input
                   id="date"
                   type="radio"
-                  name="sortBy"
                   value="date"
-                  required
+                  @input=${this._onSelectRadio}
                 />
                 <span class="custom-radio"></span>
               </label>
@@ -175,11 +177,11 @@ export class Search extends LitElement {
                 <input
                   id="rating"
                   type="radio"
-                  name="sortBy"
                   value="rating"
-                  required />
-                <span class="custom-radio"></span
-              ></label>
+                  @input=${this._onSelectRadio}
+                />
+                <span class="custom-radio"></span>
+              </label>
             </div>
             <div class="search-button-container">
               <button
@@ -197,9 +199,22 @@ export class Search extends LitElement {
     `;
   }
 
-  private async _submit() {
+  _onChangeKeyword(event: Event) {
+    this.keyword = (event.target as HTMLInputElement).value;
+  }
+
+  _onSelectRadio(event: Event) {
+    this.sortBy = (event.target as HTMLInputElement).value;
+  }
+
+  async _submit(event: Event) {
+    event.preventDefault();
+
     try {
-      const results = await SearchService.searchByKeyword('cat', 'date');
+      const results = await SearchService.searchByKeyword(
+        this.keyword,
+        this.sortBy
+      );
       this.results = results;
     } catch {
       // TODO: handle error
