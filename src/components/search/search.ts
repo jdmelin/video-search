@@ -158,6 +158,7 @@ export class Search extends LitElement {
                   id="relevance"
                   type="radio"
                   value="relevance"
+                  name="sortBy"
                   @input=${this._onSelectRadio}
                 />
                 <span class="custom-radio"></span>
@@ -168,6 +169,7 @@ export class Search extends LitElement {
                   id="date"
                   type="radio"
                   value="date"
+                  name="sortBy"
                   @input=${this._onSelectRadio}
                 />
                 <span class="custom-radio"></span>
@@ -178,6 +180,7 @@ export class Search extends LitElement {
                   id="rating"
                   type="radio"
                   value="rating"
+                  name="sortBy"
                   @input=${this._onSelectRadio}
                 />
                 <span class="custom-radio"></span>
